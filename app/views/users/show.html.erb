@@ -1,9 +1,16 @@
-<p id="notice"><%= notice %></p>
+<%= render  "shared/notice" %>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<div class="container">
+    <div class="created-eventz">
+        <h2> Created eventz </h2>
+        <div class="events-list">
+            <% @user.events do |event| %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+            <%= link_to  event.name, event_path(event), class: "list-group-item list-group-item-action" %>
+
+            <% end %>
+        </div>
+    </div>
+
+
+</div>

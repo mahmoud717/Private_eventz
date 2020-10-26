@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def destroy
         reset_session
-        redirect_to articles_path
+        redirect_to events_path
     end
     def new
         # @users = User.all

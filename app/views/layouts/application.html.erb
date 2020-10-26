@@ -12,20 +12,41 @@
 </head>
 
 <body class="m-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <%= link_to  "Private Eventz", root_path, class: "navbar-brand h1" %>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mr-3">
-                <li>
-                    <% if !session[:current_user].nil?%>
-                    <%= link_to "#{session["current_user"]["name"]}", user_path(session["current_user"]["id"]), class: "btn btn-success" %>
-                    <% end %>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <%= link_to  "Private Eventz", root_path, class: "navbar-brand h1" %>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+                <ul class="navbar-nav w-100 d-flex justify-content-between ">
+                    <div class="d-flex">
+                        <li class="nav-item">
+                            <%= link_to  "Calender", events_path  , class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to  "Members", users_path  , class: "nav-link" %>
+                        </li>
+                    </div>
+                    <div class="d-flex">
+                        <li class="nav-item">
+                            <% if !session[:current_user].nil?%>
+                            <%= link_to "Account", user_path(session["current_user"]["id"]), class: "nav-link" %>
+                            <% end %>
+                        </li>
+                        <li class="nav-item active">
+                            <%= link_to  "Signup", signup_path  , class: "nav-link" if !is_logged_in?%>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to  "login", login_path  , class: "nav-link" if !is_logged_in?%>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to  "Signout", logout_path  , class: "nav-link" if is_logged_in?%>
+                        </li>
+                    </div>
+                </ul>
 
+            </div>
         </div>
     </nav>
     <%= yield %>
