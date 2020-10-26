@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :events
+  resources :users, only: [ :new ,:show, :index, :create]
+  get "signup", to: "users#new"
+  get "logout", to: "sessions#destroy"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  root to: "users#index"
 end

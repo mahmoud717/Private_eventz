@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>PrivateEventz</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
 
-  <body>
+<body class="m-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <%= link_to  "Private Eventz", root_path, class: "navbar-brand h1" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mr-3">
+                <li>
+                    <% if !session[:current_user].nil?%>
+                    <%= link_to "#{session["current_user"]["name"]}", user_path(session["current_user"]["id"]), class: "btn btn-success" %>
+                    <% end %>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
     <%= yield %>
-  </body>
+</body>
+
 </html>
