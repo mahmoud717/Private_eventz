@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @user = User.find_by(username: session["current_user"]["username"])
-  end
+  end 
 
   # GET /users/1
   # GET /users/1.json
