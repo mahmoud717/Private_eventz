@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action is_logged_in? , only:[:new]
+  # before_action is_logged_in? , only:[:new]
   # GET /events
   # GET /events.json
   def index
@@ -24,8 +24,9 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
-
+    @user = User.find(session["current_user"]["id"])
+    @event =@user.events.build(event_params)
+    @user.event_attended << @event
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -70,5 +71,8 @@ class EventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def event_params
       params.require(:event).permit(:name, :event_date, :description)
+    end
+    def is_logged_in?
+      session.key?("current_user") ? true : false 
     end
 end

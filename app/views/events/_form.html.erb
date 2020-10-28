@@ -1,32 +1,22 @@
-<%= form_with(model: event, local: true) do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-        <% event.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: event, local: true) do |f| %>
+<div class="container form-container  w-50 bg-white p-5 ">
+    <%= render  "shared/errors", obj: event %>
+    <div class="form-group">
+        <%= f.label :name  %>
+        <%= f.text_field :name,class: "form-control",:aria=>{:describedby=> "nameHelp"}, :placeholder=> "please enter the event name" %>
+        <small id="nameHelp" class="form-text text-muted">Name must be unique and between (5-15) characters.</small>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :event_date %>
-    <%= form.date_select :event_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="form-group">
+        <%= f.label :event_date %>
+        <%= f.date_field :event_date, class: "form-control" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "form-control", :placeholder=> "Enter event description." %>
+    </div>
+    <div class="text-center">
+        <%= f.submit "Create" , class: "btn btn-lg btn-info" if type == "create" %>
+        <%= f.submit "Create" , class: "btn btn-lg btn-info" if type == "edit" %>
+    </div>
+    <% end %>
+</div>

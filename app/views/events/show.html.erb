@@ -1,19 +1,50 @@
-<p id="notice"><%= notice %></p>
+<%= render  "shared/notice" %>
+<div class="m-5 p-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1><%= @event.name.titleize %></h1>
+        </div>
+        <div class="col text-right">
+            <% if session["current_user"]["id"] == @event.user_id %>
+            <%= link_to 'Edit', edit_event_path, class: "btn btn-outline-secondary" %>
+            <%= link_to 'Attend', "#{@event.id}/attend", class: "btn btn-outline-secondary" if !user_attending?(@event) %>
+            <%= link_to 'Cancel attendece', "#{@event.id}/cancel", class: "btn btn-outline-secondary" if user_attending?(@event) %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-8">
+                        <div class="card-body">
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
+                            <p class="card-text text-muted"> <%= @event.description %> </p>
+                        </div>
+                    </div>
 
-<p>
-  <strong>Event date:</strong>
-  <%= @event.event_date %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+                    <div class="col-md-4">
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <i class="far fa-user-circle text-dark fa-lg mr-1"></i>
+                                Created by <%= link_to @event.user.username, user_path(@event.user) %>
+                            </p>
+                            <p class="text-muted">
+                                <i class="far fa-calendar-alt text-dark fa-lg mr-1"></i>
+                                <%= @event.event_date.strftime("%B %-d, %Y at %l:%M %p") %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <h1>Attendees</h1>
+    <div class="list-group card">
+        <% @event.attendees.each do |user| %>
+        <%= link_to  user.username, user_path(user), class: "list-group-item list-group-item-action" %>
+        <% end %>
+    </div>
+</div>

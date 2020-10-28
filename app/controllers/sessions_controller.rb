@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         if @user 
             session[:current_user] = @user
             flash[:notice] = "You have successfully logged in."
-            redirect_to users_path
+            redirect_to events_path
         else
             flash.now[:notice] = "This username is incorrect"
             render "new"
