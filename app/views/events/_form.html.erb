@@ -1,6 +1,6 @@
 <%= form_with(model: event, local: true) do |f| %>
 <div class="container form-container  w-50 bg-white p-5 ">
-    <%= render  "shared/errors", obj: event %>
+    <%= render  "shared/notice", obj: event %>
     <div class="form-group">
         <%= f.label :name  %>
         <%= f.text_field :name,class: "form-control",:aria=>{:describedby=> "nameHelp"}, :placeholder=> "please enter the event name" %>

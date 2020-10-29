@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  before_action is_logged_in? , only:[:new]
+  before_action :logged_in? , only:[:new]
   # GET /events
   # GET /events.json
   def index
@@ -74,7 +74,11 @@ class EventsController < ApplicationController
     def event_params
       params.require(:event).permit(:name, :event_date, :description)
     end
-    def is_logged_in?
-      session.key?("current_user") ? true : false 
-    end
+    def logged_in?
+      if session.key?("current_user") ? true : false 
+          render "new" 
+      else
+          redirect_to login_path, notice: 'You need to sign in before creating an event.'
+      end
+  end
 end
