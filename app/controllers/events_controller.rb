@@ -11,9 +11,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-     if session.key?('current_user')
-      @user = User.find(session['current_user']['id'])
-     end
+    @user = User.find(session['current_user']['id']) if session.key?('current_user')
   end
 
   # GET /events/new

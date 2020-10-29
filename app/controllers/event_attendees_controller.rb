@@ -13,7 +13,9 @@ class EventAttendeesController < ApplicationController
     @user.event_attended.delete(@event) if @user.event_attended.include?(@event)
     redirect_to event_path
   end
+
   private
+
   def logged_in?
     if session.key?('current_user') ? true : false
       render 'new'
