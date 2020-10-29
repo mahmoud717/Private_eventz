@@ -9,11 +9,11 @@ in this project i built a events site that allow users to create and attend even
 
 ## 🔨 Setup    <a name = "setup"></a>
 - Clone this project from github using
-- <code>$ git clone https://github.com/mahmoud717/members-only.git</code>
-- <code>cd members-only</code>
+- <code>$ git clone https://github.com/mahmoud717/private_eventz.git</code>
+- <code>cd private_eventz</code>
 - <code>$ bundle install</code>
 
-- you can visit the site through this link https://members-only-717.herokuapp.com/
+- you can visit the site through this link https://private-eventz.herokuapp.com/
 
 ## Run Test <a name = "Testing"></a>
 - Rspec :heavy_check_mark:
