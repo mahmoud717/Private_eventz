@@ -34,6 +34,8 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/EachForSimpleLoop:
   Enabled: false
+Layout/LineLength:
+  Enabled: false
 Style/AndOr:
   Enabled: false
 Style/DefWithParentheses:

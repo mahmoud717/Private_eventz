@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: %i[show edit update destroy]
 
-  before_action :logged_in? , only:[:new]
+  before_action :logged_in?, only: [:new]
   # GET /events
   # GET /events.json
   def index
@@ -11,7 +11,9 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @user = User.find(session["current_user"]["id"])
+     if session.key?('current_user')
+      @user = User.find(session['current_user']['id'])
+     end
   end
 
   # GET /events/new
@@ -20,14 +22,13 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /events
   # POST /events.json
   def create
-    @user = User.find(session["current_user"]["id"])
-    @event =@user.events.build(event_params)
+    @user = User.find(session['current_user']['id'])
+    @event = @user.events.build(event_params)
     @user.event_attended << @event
     respond_to do |format|
       if @event.save
@@ -65,20 +66,22 @@ class EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def event_params
-      params.require(:event).permit(:name, :event_date, :description)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def event_params
+    params.require(:event).permit(:name, :event_date, :description)
+  end
+
+  def logged_in?
+    if session.key?('current_user') ? true : false
+      render 'new'
+    else
+      redirect_to login_path, notice: 'You need to sign in before creating an event.'
     end
-    def logged_in?
-      if session.key?("current_user") ? true : false 
-          render "new" 
-      else
-          redirect_to login_path, notice: 'You need to sign in before creating an event.'
-      end
   end
 end
